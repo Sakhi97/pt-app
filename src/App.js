@@ -1,6 +1,6 @@
 import './App.css';
 import Customerlist from './components/Customerlist';
-import Traininglist from './components/Traninglist';
+import Traininglist from './components/Traininglist';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -23,11 +23,12 @@ function App() {
           <Toolbar>
             <Typography variant="h6">PERSONAL TRAINING APP</Typography>
           </Toolbar>
+          </AppBar>
           <Tabs value={value} onChange={handleChange}>
             <Tab value="/" label="Customer List" component={Link} to="/"  />
             <Tab value="/traininglist" label="Training List" component={Link} to="/traininglist" />
           </Tabs>
-        </AppBar>
+       
         <Routes>
           <Route path="/" element={<Customerlist />} />
           <Route path="/traininglist" element={<Traininglist />} />

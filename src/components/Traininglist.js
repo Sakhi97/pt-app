@@ -24,30 +24,34 @@ function Traininglist() {
   const getTrainings = async () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/trainings`);
-      if (response.ok) {
-        const data = await response.json();
-        const trainingsWithCustomer = await Promise.all(
-          data.content.map(async (training) => {
-            const customerUrl = training.links.find((link) => link.rel === "customer").href;
-
-            const customerResponse = await fetch(customerUrl);
-            if (customerResponse.ok) {
-              const customerData = await customerResponse.json();
-              const customerName = `${customerData.firstname} ${customerData.lastname}`;
-              return { ...training, customer: customerName };
-            } else {
-              throw new Error("Failed to fetch customer data");
-            }
-          })
-        );
-        setTrainings(trainingsWithCustomer);
-      } else {
-        throw new Error("Failed to fetch trainings data");
+      if (!response.ok) {
+        throw new Error("Error occurred in fetching trainings data");
       }
+      const { content: data } = await response.json();
+  
+      const fetchCustomer = async (training) => {
+        const customerUrl = training.links.find((link) => link.rel === "customer")?.href;
+        const customerResponse = await fetch(customerUrl);
+        if (!customerResponse.ok) {
+          throw new Error("Could not fetch customer data for training");
+        }
+        return await customerResponse.json();
+      };
+  
+      const trainingsWithCustomer = await Promise.all(
+        data.map(async (training) => {
+          const customerData = await fetchCustomer(training);
+          const customer = `${customerData.firstname} ${customerData.lastname}`;
+          return { ...training, customer };
+        })
+      );
+  
+      setTrainings(trainingsWithCustomer);
     } catch (error) {
       console.error("Error fetching trainings:", error);
     }
   };
+  
 
   useEffect(() => {
     getTrainings();
@@ -63,6 +67,3 @@ function Traininglist() {
 }
 
 export default Traininglist;
-
-
-
