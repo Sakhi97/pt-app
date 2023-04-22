@@ -1,6 +1,6 @@
 import './App.css';
-import Customerlist from './components/Customerlist';
-import Traininglist from './components/Traninglist';
+import CustomerList from './components/Customerlist';
+import TrainingList from './components/Traininglist';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -11,6 +11,8 @@ import { Link, Route, Routes, BrowserRouter } from 'react-router-dom';
 
 function App() {
   const [value, setValue] = useState('/');
+ 
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -23,14 +25,15 @@ function App() {
           <Toolbar>
             <Typography variant="h6">PERSONAL TRAINING APP</Typography>
           </Toolbar>
+          </AppBar>
           <Tabs value={value} onChange={handleChange}>
             <Tab value="/" label="Customer List" component={Link} to="/"  />
             <Tab value="/traininglist" label="Training List" component={Link} to="/traininglist" />
           </Tabs>
-        </AppBar>
+       
         <Routes>
-          <Route path="/" element={<Customerlist />} />
-          <Route path="/traininglist" element={<Traininglist />} />
+          <Route path="/" element={<CustomerList />} />
+          <Route path="/traininglist" element={<TrainingList />} />
         </Routes>
       </BrowserRouter>
     </div>

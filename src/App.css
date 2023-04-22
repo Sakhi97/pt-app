@@ -7,16 +7,6 @@
   pointer-events: none;
 }
 
-.MuiTab-label {
-  color: black;
-  font-weight: bold;
-}
-
-.MuiTabs-root .MuiTab-root.Mui-selected {
-  color: white;
-  font-weight: bold;
-  background-color: rgb(135, 172, 220);
-}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
