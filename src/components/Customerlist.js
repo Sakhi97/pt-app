@@ -6,6 +6,9 @@ import AddCustomer from "./AddCustomer";
 import EditCustomer from "./EditCustomer";
 import AddTraining from "./AddTraining";
 import moment from 'moment';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
@@ -26,9 +29,17 @@ function CustomerList() {
     { headerName: "Email", field: "email", sortable: true, filter: true },
     { headerName: "Phone", field: "phone", sortable: true, filter: true, width: 130 },
     {
-        cellRenderer: params => <EditCustomer params={params.data} updateCustomer={updateCustomer} />,
-        width: 80
+      cellRenderer: params => (
+        <EditCustomer
+          params={params.data}
+          updateCustomer={updateCustomer}
+        >
+          <EditIcon />
+        </EditCustomer>
+      ),
+      width: 70
     },
+    
     {
       cellRenderer: (params) => (
         <Button
@@ -36,11 +47,12 @@ function CustomerList() {
           color="error"
           onClick={() => deleteCustomer(params)}
         >
-          Delete
+          <DeleteIcon />
         </Button>
       ),
-      width: 80,
+      width: 70,
     },
+    
 
     {
         width: 140,
@@ -159,7 +171,7 @@ const addTraining = async (training) => {
     <AddCustomer addCustomer={addCustomer} />
       <div
         className="ag-theme-material"
-        style={{ width: "90%", height: 600, margin: "auto" }}
+        style={{ width: "89%", height: 600, margin: "auto" }}
       >
         <AgGridReact
           rowData={customers}
