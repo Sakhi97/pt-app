@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { AgGridReact } from "ag-grid-react";
 import dayjs from "dayjs";
 import Button from "@mui/material/Button";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
@@ -19,9 +20,9 @@ function TrainingList() {
       filter: true,
       valueFormatter: (params) => dayjs(params.value).format("DD.MM.YYYY HH:mm"),
     },
-    { headerName: "Duration", field: "duration", sortable: true, filter: true, width: 120},
-    { headerName: "Activity", field: "activity", sortable: true, filter: true,  width: 130},
-    { headerName: "Customer", field: "customer", sortable: true, filter: true },
+    { headerName: "Duration", field: "duration", sortable: true, filter: true},
+    { headerName: "Activity", field: "activity", sortable: true, filter: true},
+    { headerName: "Customer", field: "customer", sortable: true, filter: true},
     {
       headerName: "Delete",
       field: "links",
@@ -31,7 +32,7 @@ function TrainingList() {
           color="error"
           onClick={() => deleteTraining(params)}
         >
-          Delete
+          <DeleteIcon />
         </Button>
       ),
       width: 90,
@@ -94,7 +95,7 @@ function TrainingList() {
 
   return (
     <>
-      <div className="ag-theme-material" style={{ width: "55%", height: 600, margin: "auto" }}>
+      <div className="ag-theme-material" style={{ width: "65%", height: 600, margin: "auto" }}>
         <AgGridReact rowData={trainings} columnDefs={columnDefs} pagination={true} paginationPageSize={10} />
       </div>
     </>
@@ -102,5 +103,6 @@ function TrainingList() {
 }
 
 export default TrainingList;
+
 
 
